@@ -7,7 +7,6 @@ public class Cube {
     private final int FACES_NUMBER = 6;
     private final int CUBE_SIZE = 3;
     private final Cell[][][] cells = new Cell[FACES_NUMBER][CUBE_SIZE][CUBE_SIZE];
-    private final int RANDOM_MOVES = 100;
 
     public Cube() {
         for (int i = 0; i < FACES_NUMBER; i++) {
@@ -129,11 +128,17 @@ public class Cube {
     }
 
     public boolean isSolved() {
-        return this == new Cube();
+        return equals(new Cube());
     }
 
     public int getSize() {
         return CUBE_SIZE;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Cube that) return Arrays.equals(cells, that.cells);
+        return false;
     }
 
     @Override
