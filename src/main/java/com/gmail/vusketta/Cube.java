@@ -10,24 +10,25 @@ public class Cube {
 
     public Cube() {
         for (int i = 0; i < FACES_NUMBER; i++) {
-            final int finalI = i;
-            Arrays.stream(cells[i]).forEach(a -> Arrays.fill(a, Cell.valueOf(finalI)));
+            final Cell cell = Cell.valueOf(i);
+            Arrays.stream(cells[i]).forEach(a -> Arrays.fill(a, cell));
         }
     }
 
     public void move(final Direction direction, final int shift, final int index) {
+        final moves = shift % 4;
         switch (direction) {
             case UP -> {
-                for (int i = 0; i < shift; i++) up(index);
+                for (int i = 0; i < moves; i++) up(index);
             }
             case DOWN -> {
-                for (int i = 0; i < shift; i++) down(index);
+                for (int i = 0; i < moves; i++) down(index);
             }
             case RIGHT -> {
-                for (int i = 0; i < shift; i++) right(index);
+                for (int i = 0; i < moves; i++) right(index);
             }
             case LEFT -> {
-                for (int i = 0; i < shift; i++) left(index);
+                for (int i = 0; i < moves; i++) left(index);
             }
         }
     }
@@ -137,6 +138,7 @@ public class Cube {
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
         if (o instanceof Cube that) return Arrays.equals(cells, that.cells);
         return false;
     }
